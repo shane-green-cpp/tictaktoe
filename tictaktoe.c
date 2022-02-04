@@ -1,4 +1,6 @@
 #include <stdio.h>
+//defining SIZE of array because im trying to prevent error, not sure
+//if it does anything though
 #define SIZE 3
 
 //function that prints out the ticktactoe board
@@ -35,12 +37,12 @@ int checkWin(char board[SIZE][SIZE]) {
             win = 1;
         }
     }
-    //checks cross
+    //checks cross NW
     printf("crossOne : %d\n", crossOne);
     if (crossOne == 264 || crossOne == 237) {
         win = 1;
     }
-    //checks cross
+    //checks cross NW
     printf("crossTwo : %d\n", crossTwo);
     if (crossTwo == 264 || crossTwo == 237) {
         win = 1;
