@@ -26,34 +26,33 @@ int checkWin(char board[SIZE][SIZE]) {
     //this loop determins if a row is a win
     for (int i = 0; i < 3; i++) {
         charVal = board[i][0]+board[i][1]+board[i][2];
-        if (charVal == 264 || charVal == 237) {
+        if (charVal == 264 || charVal == 267) {
             win = 1;
         }
     }
     //this loop determins if a col is a win
     for (int j = 0; j < 3; j++) {
         charVal = board[0][j]+board[1][j]+board[2][j];
-        if (charVal == 264 || charVal == 237) {
+        if (charVal == 264 || charVal == 267) {
             win = 1;
         }
     }
     //checks cross NW
     printf("crossOne : %d\n", crossOne);
-    if (crossOne == 264 || crossOne == 237) {
+    if (crossOne == 264 || crossOne == 267) {
         win = 1;
     }
     //checks cross NW
     printf("crossTwo : %d\n", crossTwo);
-    if (crossTwo == 264 || crossTwo == 237) {
+    if (crossTwo == 264 || crossTwo == 267) {
         win = 1;
     }
     return win;
-    
 }
 
 int main() {
     //instance variables
-    char board[SIZE][SIZE] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
+    char board[SIZE][SIZE] = {{' ',' ','Y'},{' ','Y',' '},{'Y',' ',' '}};
     //booleans
     int win = 0;
     int misclick = 0;
