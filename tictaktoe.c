@@ -15,6 +15,12 @@ void printBoard(char board[SIZE][SIZE]) {
         printf("\n");
     }
 }
+//bitwise check win attempt
+// int checkWin(char board[SIZE][SIZE]) {
+//     int playerX = 000000000;
+//     int playerY = 000000000;
+//     int boardState = 000000000;
+// }
 
 //function that test if someone has won
 int checkWin(char board[SIZE][SIZE]) {
@@ -22,6 +28,7 @@ int checkWin(char board[SIZE][SIZE]) {
     int crossOne = board[0][0]+board[1][1]+board[2][2];
     int crossTwo = board[0][2]+board[1][1]+board[2][0];
     int win = 0;
+    int possible = 1;
 
     //this loop determins if a row is a win
     for (int i = 0; i < 3; i++) {
@@ -52,7 +59,7 @@ int checkWin(char board[SIZE][SIZE]) {
 
 int main() {
     //instance variables
-    char board[SIZE][SIZE] = {{' ',' ','Y'},{' ','Y',' '},{'Y',' ',' '}};
+    char board[SIZE][SIZE] = {{' ',' ',' '},{' ',' ',' '},{' ',' ',' '}};
     //booleans
     int win = 0;
     int misclick = 0;
@@ -63,10 +70,9 @@ int main() {
     char col;
 
     printf("x goes first\n");
-
+    printBoard(board);
     //game loop, resolves once there is a winner
     while (win != 1) {
-        printBoard(board);
         printf("TURN %d\n", turn);
         printf("Enter row. T, M, B: \n");
         scanf(" %c", &row);
@@ -80,6 +86,7 @@ int main() {
                 case 'l':
                     if (board[0][0] != 'X' && board[0][0] != 'Y') {
                         board[0][0] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -89,6 +96,7 @@ int main() {
                 case 'm':
                     if (board[0][1] != 'X' && board[0][1] != 'Y') {
                         board[0][1] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -98,6 +106,7 @@ int main() {
                 case 'r':
                     if (board[0][2] != 'X' && board[0][2] != 'Y') {
                         board[0][2] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -105,7 +114,7 @@ int main() {
                     }
                     break;
                 default:
-                    printf("error");
+                    printf("error\n");
                     break;
             }
             break;
@@ -114,6 +123,7 @@ int main() {
                 case 'l':
                     if (board[1][0] != 'X' && board[1][0] != 'Y') {
                         board[1][0] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -123,6 +133,7 @@ int main() {
                 case 'm':
                     if (board[1][1] != 'X' && board[1][1] != 'Y') {
                         board[1][1] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -132,13 +143,14 @@ int main() {
                 case 'r':
                     if (board[1][2] != 'X' && board[1][2] != 'Y') {
                         board[1][2] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
                         break;
                     }
                 default:
-                    printf("error");
+                    printf("error\n");
                     break;
             }
             break;
@@ -147,6 +159,7 @@ int main() {
                 case 'l':
                     if (board[2][0] != 'X' && board[2][0] != 'Y') {
                         board[2][0] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -155,6 +168,7 @@ int main() {
                 case 'm':
                     if (board[2][1] != 'X' && board[2][1] != 'Y') {
                         board[2][1] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
@@ -163,19 +177,20 @@ int main() {
                 case 'r':
                     if (board[2][2] != 'X' && board[2][2] != 'Y') {
                         board[2][2] = let;
+                        break;
                     } else {
                         printf("space taken! try again\n");
                         misclick = 1;
                         break;
                     }
                 default:
-                    printf("error");
+                    printf("error\n");
                     break;
             }
             break;
         
         default:
-            printf("error");
+            printf("error\n");
             break;
         }
 
@@ -191,6 +206,7 @@ int main() {
         } else {
             misclick = 0;
         }
+        printBoard(board);
     }
     return 0;
 }
