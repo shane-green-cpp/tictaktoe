@@ -15,46 +15,89 @@ void printBoard(char board[SIZE][SIZE]) {
         printf("\n");
     }
 }
-//bitwise check win attempt
-// int checkWin(char board[SIZE][SIZE]) {
-//     int playerX = 000000000;
-//     int playerY = 000000000;
-//     int boardState = 000000000;
-// }
+
+//checkTie
+int checkTie(char board[SIZE][SIZE], char nextPlayer) {
+    int winnable = 0;
+    for (int i = 0; i < SIZE; i++) {
+        int r = 0;
+        int c = 0;
+        for (int j = 0; j < SIZE; j++) {
+            if (board[i][j] == nextPlayer) {
+                r++;
+            }
+            if (board[j][i] == nextPlayer) {
+                c++;
+            }
+        }
+        if (r == 0 || c == 0) {
+            winnable = 1;
+        }
+    }
+    if (board[0][0] != nextPlayer && board[1][1] != nextPlayer && board[2][2] != nextPlayer) {
+        winnable = 1;
+    }
+    if (board[0][2] != nextPlayer && board[1][1] != nextPlayer && board[2][0] != nextPlayer) {
+        winnable = 1;
+    }
+    return winnable;
+}
 
 //function that test if someone has won
-int checkWin(char board[SIZE][SIZE]) {
-    int charVal;
+int checkWin(char board[SIZE][SIZE], char nextPlayer) {
+    int charValRow, charValCol;
     int crossOne = board[0][0]+board[1][1]+board[2][2];
     int crossTwo = board[0][2]+board[1][1]+board[2][0];
     int win = 0;
-    int possible = 1;
 
-    //this loop determins if a row is a win
+    //this loop determins if a win has occured, or if is possible
     for (int i = 0; i < 3; i++) {
-        charVal = board[i][0]+board[i][1]+board[i][2];
-        if (charVal == 264 || charVal == 267) {
+        charValRow = board[i][0]+board[i][1]+board[i][2];
+        charValCol = board[0][i]+board[1][i]+board[2][i];
+        int pos = 1;
+        if (charValRow == 264 || charValRow == 237) {
+            win = 1;
+        }
+        if (charValCol == 264 || charValCol == 237) {
             win = 1;
         }
     }
-    //this loop determins if a col is a win
-    for (int j = 0; j < 3; j++) {
-        charVal = board[0][j]+board[1][j]+board[2][j];
-        if (charVal == 264 || charVal == 267) {
-            win = 1;
-        }
-    }
-    //checks cross NW
+
+    //checks crossOne for win
     printf("crossOne : %d\n", crossOne);
-    if (crossOne == 264 || crossOne == 267) {
+    if (crossOne == 264 || crossOne == 237) {
         win = 1;
     }
-    //checks cross NW
+    //checks crossTwo for win
     printf("crossTwo : %d\n", crossTwo);
-    if (crossTwo == 264 || crossTwo == 267) {
+    if (crossTwo == 264 || crossTwo == 237) {
         win = 1;
     }
-    return win;
+    
+    //check tie
+    int tie = checkTie(board, nextPlayer);
+    if (tie == 0) {
+        if (nextPlayer == 'X') {
+            tie = checkTie(board, 'O');
+        }
+        else {
+            tie = checkTie(board, 'X');
+        }
+    }
+    if (tie == 0) {
+        printf("\nTIE GAME\n");
+        win = 1;
+        return win;
+    }
+    else if (win == 1) {
+        printf("\nGAME WON\n");
+        return win;
+    }
+    else {
+        printf("\nCONTINUE PLAY\n");
+        return win;
+    }
+    
 }
 
 int main() {
@@ -194,15 +237,15 @@ int main() {
             break;
         }
 
+        //sets up turn player for next turn
         if (misclick == 0) {
             if (let == 'X') {
-                let = 'Y';
+                let = 'O';
             } else {
                 let = 'X';
             }
             turn++;
-            win = checkWin(board);
-            printf("win: %d\n", win);
+            win = checkWin(board, let);
         } else {
             misclick = 0;
         }
